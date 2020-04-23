@@ -1,0 +1,31 @@
+{
+  "name": "thoughtmonger",
+  "version": "1.0.0",
+  "description": "A simple thought keeping journal/book so you can view your thoughts chronologically with features like last year this time, have a clarity, have a cry or laugh out loud at yourself..",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "set DEBUG=server,login & node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AravindanSridhar/ThoughtMonger.git"
+  },
+  "author": "Aravindan S",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AravindanSridhar/ThoughtMonger/issues"
+  },
+  "homepage": "https://github.com/AravindanSridhar/ThoughtMonger#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "chalk": "^4.0.0",
+    "crypto": "^1.0.1",
+    "debug": "^4.1.1",
+    "ejs": "^3.0.2",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1"
+  }
+}
