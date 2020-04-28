@@ -7,12 +7,11 @@ const chalk = require("chalk");
 const morgan = require("morgan");
 const debug = require("debug")("server");
 const bodyParser = require("body-parser");
+const session = require("express-session");
+const falsh = require("connect-flash");
+const db = require("./src/routes/dbConnection.js");
 
 debug(chalk.redBright("===> Starting server in debug mode."));
-
-//DB connection config file
-var dbCredentials = require("./src/dbCredentials.json");
-
 //Server Initialization
 var server = express();
 
@@ -28,38 +27,38 @@ server.use(express.static(path.join(__dirname, "/src/public")));
 //EJS View engine
 server.set("view engine", "ejs");
 server.set("views", path.join(__dirname, "/src/views"));
-//DB Connection
-var con = mysql.createConnection(dbCredentials);
-// //Session Config
-// server.use(session({ secret: "testing" }));
+
 //Morgan logger
 server.use(morgan("tiny"));
 
-//MySQL Connect
-con.connect(function (err) {
-  if (err) throw err;
-  console.log("Connected to MySQL DB!");
+//Session configuration
+app.use(
+  session({
+    secret: "HighSecurityShit",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+
+//Flash Configuration
+server.use(flash());
+server.use((req, res, next) => {
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.error_msg = req.flash("error_msg");
 });
-function (err) {
-  if (err) throw err;
-  con.query("SELECT * FROM users", function (err, result, fields) {
-    if (err) throw err;
-    console.log(result);
-  });
-//Connection Reset Handler
-setInterval(function () {
-  con.query("SELECT 1");
-}, 10000);
 
 //Routing
-const loginRouter = require("./src/routes/login");
+const publicRouter = require("./src/routes/public");
+const userRouter = require("./src/routes/users");
 
-server.use("/login", loginRouter);
+server.use("/users", userRouter);
+server.use("/", publicRouter);
 
 server.get("/", function (req, res) {
   res.render("landing", {});
 });
 
+//Server Listen
 server.listen(server.get("port"), function () {
   console.log(
     "ThoughtMonger Server started at : " +
