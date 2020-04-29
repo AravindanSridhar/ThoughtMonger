@@ -10,14 +10,30 @@ const crypto = require("crypto");
 publicRouter.use(bodyParser.urlencoded({ extended: false }));
 publicRouter.use(bodyParser.json());
 
-publicRouter.post("/login", function (req, res) {
+publicRouter.get("/", function (req, res) {
+  res.render("landing", {});
+});
+
+publicRouter.get("/signup", (req, res) => {
+  res.render("signup", {});
+});
+
+publicRouter.post("/signup", function (req, res) {
   var userName = req.body.userName;
   var password = req.body.password;
+  var password2 = req.body.password2;
+  var email = req.body.email;
   var ip = req.ip;
   var loginTimestamp = new Date();
-  var selectUser = "SELECT user_password FROM users WHERE user_name = ?";
-  db.query(selectUser, [userName], (err, result) => {
-    res.send(result);
+  var selectUser = "SELECT user_name FROM users WHERE  user_email = ?";
+  db.query(selectUser, [email], (err, result) => {
+    if (result == "undefined") {
+      req.flash(
+        "success_msg",
+        "Signup successful! You may login to your account."
+      );
+      res.redirect("/login");
+    }
   });
 });
 

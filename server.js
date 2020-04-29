@@ -8,7 +8,7 @@ const morgan = require("morgan");
 const debug = require("debug")("server");
 const bodyParser = require("body-parser");
 const session = require("express-session");
-const falsh = require("connect-flash");
+const flash = require("connect-flash");
 const db = require("./src/routes/dbConnection.js");
 
 debug(chalk.redBright("===> Starting server in debug mode."));
@@ -32,7 +32,7 @@ server.set("views", path.join(__dirname, "/src/views"));
 server.use(morgan("tiny"));
 
 //Session configuration
-app.use(
+server.use(
   session({
     secret: "HighSecurityShit",
     resave: true,
@@ -45,6 +45,7 @@ server.use(flash());
 server.use((req, res, next) => {
   res.locals.success_msg = req.flash("success_msg");
   res.locals.error_msg = req.flash("error_msg");
+  next();
 });
 
 //Routing
@@ -53,10 +54,6 @@ const userRouter = require("./src/routes/users");
 
 server.use("/users", userRouter);
 server.use("/", publicRouter);
-
-server.get("/", function (req, res) {
-  res.render("landing", {});
-});
 
 //Server Listen
 server.listen(server.get("port"), function () {
