@@ -39,7 +39,24 @@
         >
           <div class="card">
             <div class="card-body">
-              <h3 class="card-title">Sign Up</h3>
+              <h3 class="card-title">Sign up to be a monger</h3>
+              <% include ("./partials/errors") %> <% if(typeof signUpErrors !=
+              'undefined'){%> <% signUpErrors.forEach((error) => {%>
+              <div
+                class="alert alert-danger alert-dismissable fade show"
+                role="alert"
+              >
+                <%= error.msg %>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="alert"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <%}); %> <%} %>
               <form action="/signup" method="POST">
                 <div class="input-group">
                   <div class="input-group-prepend">
@@ -50,7 +67,7 @@
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="Username"
+                    placeholder="Full Name"
                     name="userName"
                   />
                 </div>
@@ -83,12 +100,24 @@
                   />
                 </div>
                 <br />
-                <div class="row">
-                  <div class="col"></div>
-                  <div class="col">
-                    <button type="submit" class="btn btn-primary">Login</button>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="fas fa-key"></i
+                    ></span>
                   </div>
-                  <div class="col"></div>
+                  <input
+                    type="password"
+                    class="form-control"
+                    placeholder="Confirm Password"
+                    name="password2"
+                  />
+                </div>
+                <br />
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary">
+                    Sign me up
+                  </button>
                 </div>
               </form>
             </div>

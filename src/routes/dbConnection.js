@@ -8,14 +8,7 @@ var db;
 
 function connectDatabase() {
   if (!db) {
-    db = mysql.createConnection(dbCredentials);
-    db.connect(function (err) {
-      if (!err) {
-        debug(chalk.greenBright("Database is connected!"));
-      } else {
-        debug(chalk.redBright("Error connecting database!"));
-      }
-    });
+    db = mysql.createPool(dbCredentials);
   }
   return db;
 }
