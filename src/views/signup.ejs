@@ -8,17 +8,26 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
-    <!-- Bootstrap CSS -->
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-      crossorigin="anonymous"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
     />
-    <script
-      src="https://kit.fontawesome.com/0ac84d4690.js"
-      crossorigin="anonymous"
-    ></script>
+    <!-- Google Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    />
+    <!-- Bootstrap core CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Material Design Bootstrap -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css"
+      rel="stylesheet"
+    />
 
     <style>
       html,
@@ -37,16 +46,17 @@
         <div
           class="col-md-6 col-sm-10 col-10 col-lg-4 col-xl-4 align-self-center"
         >
-          <div class="card">
+          <div class="card color-block">
             <div class="card-body">
-              <h3 class="card-title">Sign up to be a monger</h3>
-              <% include ("./partials/errors") %> <% if(typeof signUpErrors !=
-              'undefined'){%> <% signUpErrors.forEach((error) => {%>
+              <h3 class="h3 card-title mb-4 text-center">
+                Sign up to be a monger
+              </h3>
+              <% if(signUpErrors.accountError != undefined){%>
               <div
-                class="alert alert-danger alert-dismissable fade show"
+                class="alert alert-danger alert-dismissible fade show"
                 role="alert"
               >
-                <%= error.msg %>
+                <strong><%= signUpErrors.accountError %></strong>
                 <button
                   type="button"
                   class="close"
@@ -56,66 +66,60 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <%}); %> <%} %>
-              <form action="/signup" method="POST">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"
-                      ><i class="fas fa-user"></i
-                    ></span>
-                  </div>
+              <%} %>
+              <form action="/signup" class="needs-validation" method="POST">
+                <div class="form-group">
                   <input
                     type="text"
-                    class="form-control"
-                    placeholder="Full Name"
+                    class="form-control <%= signUpErrors.userNameError %>"
+                    placeholder="Full name"
                     name="userName"
                   />
+                  <div class="invalid-feedback">Username cannot be empty.</div>
                 </div>
-                <br />
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"
-                      ><i class="fas fa-at"></i
-                    ></span>
-                  </div>
+
+                <div class="form-group">
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control <%= signUpErrors.emailError %>"
                     placeholder="Email"
                     name="email"
                   />
+                  <div class="invalid-feedback">Invalid email.</div>
                 </div>
-                <br />
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"
-                      ><i class="fas fa-key"></i
-                    ></span>
-                  </div>
+
+                <div class="form-group">
                   <input
                     type="password"
-                    class="form-control"
-                    placeholder="Password"
+                    class="form-control <%= signUpErrors.passwordError %>"
+                    placeholder="Password "
                     name="password"
                   />
+                  <div class="invalid-feedback">Invalid password pattern.</div>
+                  <small
+                    id="defaultRegisterFormPasswordHelpBlock"
+                    class="form-text text-muted mb-4 text-center"
+                  >
+                    At least 8 characters and 1 digit
+                  </small>
                 </div>
-                <br />
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"
-                      ><i class="fas fa-key"></i
-                    ></span>
-                  </div>
+
+                <div class="form-group">
                   <input
                     type="password"
-                    class="form-control"
+                    class="form-control <%= signUpErrors.password2Error %>"
                     placeholder="Confirm Password"
                     name="password2"
                   />
+                  <div class="invalid-feedback">Passwords do not match</div>
                 </div>
+
                 <br />
                 <div class="text-center">
-                  <button type="submit" class="btn btn-primary">
+                  <button
+                    type="submit"
+                    class="btn btn orange white-text color-block"
+                  >
                     Sign me up
                   </button>
                 </div>
@@ -130,20 +134,25 @@
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- JQuery -->
     <script
-      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-      crossorigin="anonymous"
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
     ></script>
+    <!-- Bootstrap tooltips -->
     <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-      crossorigin="anonymous"
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"
     ></script>
+    <!-- Bootstrap core JavaScript -->
     <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-      crossorigin="anonymous"
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"
+    ></script>
+    <!-- MDB core JavaScript -->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"
     ></script>
   </body>
 </html>

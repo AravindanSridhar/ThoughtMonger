@@ -8,17 +8,26 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
-    <!-- Bootstrap CSS -->
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-      crossorigin="anonymous"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
     />
-    <script
-      src="https://kit.fontawesome.com/0ac84d4690.js"
-      crossorigin="anonymous"
-    ></script>
+    <!-- Google Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    />
+    <!-- Bootstrap core CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Material Design Bootstrap -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css"
+      rel="stylesheet"
+    />
 
     <style>
       html,
@@ -40,12 +49,42 @@
           <div class="card">
             <div class="card-body">
               <h3 class="card-title">Sign in, monger.</h3>
-              <% if(success_msg != ''){%>
+              <% if(login_success_msg != ''){%>
               <div
                 class="alert alert-success alert-dismissable fade show"
                 role="alert"
               >
-                <%= success_msg %>
+                <%= login_success_msg %>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="alert"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <%} %> <% if(login_error_msg != ''){%>
+              <div
+                class="alert alert-danger alert-dismissable fade show"
+                role="alert"
+              >
+                <%= login_error_msg %>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="alert"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <%} %> <% if(error != ''){%>
+              <div
+                class="alert alert-danger alert-dismissable fade show"
+                role="alert"
+              >
+                <%= error %>
                 <button
                   type="button"
                   class="close"
@@ -56,27 +95,17 @@
                 </button>
               </div>
               <%} %>
-              <form action="/signin" method="POST">
+              <form action="/login" method="POST">
                 <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"
-                      ><i class="fas fa-user"></i
-                    ></span>
-                  </div>
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="Username"
-                    name="userName"
+                    placeholder="Email"
+                    name="email"
                   />
                 </div>
                 <br />
                 <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"
-                      ><i class="fas fa-key"></i
-                    ></span>
-                  </div>
                   <input
                     type="password"
                     class="form-control"
