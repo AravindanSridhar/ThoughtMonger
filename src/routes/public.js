@@ -81,7 +81,7 @@ publicRouter.post("/signup", async (req, res) => {
 
 publicRouter.post("/login", (req, res, next) => {
   passport.authenticate("local", {
-    successRedirect: "/users/dashboard",
+    successRedirect: "/users/timeline",
     failureRedirect: "/",
     failureFlash: true,
   })(req, res, next);

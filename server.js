@@ -66,9 +66,17 @@ const userRouter = require("./src/routes/users");
 server.use("/users", userRouter);
 server.use("/", publicRouter);
 
-async function testerj() {}
-
-testerj();
+server.get("/sessions", (req, res) => {
+  req.sessionStore.sessionModel
+    .findAll()
+    .then((sessions) =>
+      sessions.map((sess) => JSON.parse(sess.dataValues.data))
+    )
+    .then((sessions) => {
+      debug(sessions);
+      res.send(sessions);
+    });
+});
 
 //Server Listen
 server.listen(server.get("port"), function () {

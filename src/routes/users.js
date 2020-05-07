@@ -11,8 +11,8 @@ const { ensureAuthenticated } = require("../config/auth");
 userRouter.use(bodyParser.urlencoded({ extended: false }));
 userRouter.use(bodyParser.json());
 
-userRouter.get("/dashboard", ensureAuthenticated, (req, res) => {
-  res.send("req.user.user_email");
+userRouter.get("/timeline", ensureAuthenticated, (req, res) => {
+  var user_email = req.user.user_email;
 });
 
 module.exports = userRouter;
